@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Graph detector</title>
+    <link href="layout/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="header">
+    Абдуллин Игорь Эдуардович, P3208, вариант №1800
+</div>
+<div class="aside">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Request time (milli)</th>
+            <th>Current time</th>
+            <th>In range</th>
+            <th>X</th>
+            <th>Y</th>
+            <th>R</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <button class="button-4" id="clearButton" role="button">Очистить</button>
+</div>
+<div class="content">
+    <canvas id="graph" width="300" height="300"></canvas>
+    <section class="interactive">
+        <div class="interactive-element">
+            <label>
+                X:
+                <select name="X" class="x-select">
+                    <option value="none" selected disabled hidden></option>
+                    <option value="-2">-2</option>
+                    <option value="-1.5">-1.5</option>
+                    <option value="-1">-1</option>
+                    <option value="-0.5">-0.5</option>
+                    <option value="0">0</option>
+                    <option value="0.5">0.5</option>
+                    <option value="1">1</option>
+                    <option value="1.5">1.5</option>
+                    <option value="2">2</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="interactive-element">
+            <label for="Y-input">Y:</label>
+            <input type="number" id="Y-input">
+        </div>
+
+        <div class="interactive-element">
+            <fieldset>
+                <legend>Radius:</legend>
+                <div id="radio-radius">
+
+                    <label for="contactChoice1">
+                        <input
+                                type="radio" name="R"
+                                value="1"
+                                id="contactChoice1"
+                                checked/>
+                        <span>1</span>
+                    </label>
+
+
+                    <label for="contactChoice3">
+                        <input
+                                type="radio" name="R" value="1.5"
+                                id="contactChoice3"/>
+                        <span>1.5</span>
+                    </label>
+
+                    <label for="contactChoice4">
+                        <input
+                                type="radio" name="R" value="2"
+                                id="contactChoice4"/>
+                        <span>2</span>
+                    </label>
+
+                    <label for="contactChoice5">
+                        <input
+                                type="radio" name="R" value="2.5"
+                                id="contactChoice5"/>
+                        <span>2.5</span>
+                    </label>
+
+                    <label for="contactChoice6">
+                        <input
+                                type="radio" name="R" value="3"
+                                id="contactChoice6"/>
+                        <span>3</span>
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+    </section>
+    <button class="button-4" role="button" id="checkButton">Проверить</button>
+</div>
+<div class="footer"> &copy; 2023 ИТМО ПИиКТ. Создано с помощью HTML/CSS, JS. Все права защищены.</div>
+<script src="js/Graph.js"></script>
+<script src="js/Validator.js"></script>
+<script src="js/Helper.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</body>
+</html>
