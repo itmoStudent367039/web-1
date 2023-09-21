@@ -15,7 +15,7 @@ function validateY() {
     if (regex.test(y.toString())) {
         return true;
     } else {
-        alert("y is decimal, between 0 and 3")
+        alert("y is decimal, between -3 and 3")
         return false;
     }
 }

@@ -3,11 +3,11 @@ body {
     display: grid;
     grid-gap: 1em;
     grid: 'header' auto
-        'aside' auto
         'content' 1fr
+        'aside' auto
         'footer' auto
       / 1fr;
-    max-block-size: 100px ;
+    max-block-size: 1000px;
 }
 
 @media (min-width: 40em) {
@@ -26,9 +26,16 @@ body {
 }
 
 .aside {
-    overflow: auto;
     grid-area: aside;
+    min-width: 450px;
     width: fit-content;
+}
+
+.wrapper-table {
+    margin-bottom: 10px;
+    overflow-y: auto;
+    max-height: 300px;
+    min-width: 450px;
 }
 
 .content {
