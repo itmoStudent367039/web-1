@@ -9,6 +9,7 @@
 <div class="header">
     Абдуллин Игорь Эдуардович, P3208, вариант №1800
 </div>
+
 <div class="aside">
     <div class="wrapper-table">
         <table class="table">
@@ -26,7 +27,7 @@
             </tbody>
         </table>
     </div>
-    <button class="button-4" id="clearButton" role="button">Очистить</button>
+    <button class="button-4" id="clearButton" onclick="clearTable()" role="button">Очистить</button>
 </div>
 <div class="content">
     <canvas id="graph" width="300" height="300"></canvas>
@@ -57,7 +58,7 @@
         <div class="interactive-element">
             <fieldset>
                 <legend>Radius:</legend>
-                <div id="radio-radius">
+                <div id="radio-radius" onchange="addRadiusChangeListener()">
 
                     <label for="contactChoice1">
                         <input
@@ -100,12 +101,13 @@
             </fieldset>
         </div>
     </section>
-    <button class="button-4" role="button" id="checkButton">Проверить</button>
+    <button class="button-4" role="button" onclick="addCheckButtonListener()" id="checkButton">Проверить</button>
 </div>
 <div class="footer"> &copy; 2023 ИТМО ПИиКТ. Создано с помощью HTML/CSS, JS. Все права защищены.</div>
-<script src="js/Graph.js"></script>
-<script src="js/Validator.js"></script>
-<script src="js/Helper.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/Graph.js"></script>
+<script src="js/Helper.js"></script>
+<script src="js/ManageClearBtn.js"></script>
 </body>
 </html>

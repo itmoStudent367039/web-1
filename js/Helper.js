@@ -1,74 +1,108 @@
-window.onload = function () {
-  let canvasPrinter = new Graph();
+const graph = new Graph();
+const FROM_MINUS_THREE_TILL_THREE = new RegExp(
+  /^-?(?:3(?:\.0+)?|[0-2](?:\.[0-9]+)?|\.[0-9]+)$/,
+);
 
-  let findAndReturnSelectedRadius = () => {
-    let selected = document.querySelector("input[name='R']:checked");
-    return selected.value;
-  };
+let inputValidator = {
+  xSelector: document.querySelector(".x-select"),
 
-  canvasPrinter.redrawAll(findAndReturnSelectedRadius());
+  yInput: document.getElementById("Y-input"),
 
-  document.getElementById("radio-radius").onchange = function () {
-    canvasPrinter.redrawAll(findAndReturnSelectedRadius());
-    drawAllPoints(canvasPrinter);
-  };
-
-  document.getElementById("checkButton").onclick = function () {
-    if (validateX() && validateY()) {
-      let x = document.querySelector(".x-select").value;
-      let y = document.getElementById("Y-input").value.replace(",", ".");
-      let r = findAndReturnSelectedRadius();
-
-      $.ajax({
-        type: "POST",
-        url: "php/Server.php",
-        data: { x: x, y: y, r: r },
-        success: function (serverAnswer) {
-          const jsonObject = JSON.parse(serverAnswer);
-          let table = document.querySelector("table");
-          let tBody = table.getElementsByTagName("tbody")[0];
-          let row = tBody.insertRow();
-
-          row.insertCell().textContent = jsonObject.response_time;
-          row.insertCell().textContent = jsonObject.current_time;
-          row.insertCell().textContent = jsonObject.boolean;
-          row.insertCell().textContent = jsonObject.x;
-          row.insertCell().textContent = jsonObject.y;
-          row.insertCell().textContent = jsonObject.r;
-
-          drawAllPoints(canvasPrinter);
-        },
-      });
+  validateX: function () {
+    if (this.xSelector.value !== "none") {
+      return true;
+    } else {
+      doAttention("Select X");
+      return false;
     }
-  };
+  },
 
-  document.getElementById("clearButton").onclick = function () {
-    deleteAllRows(canvasPrinter, findAndReturnSelectedRadius());
-  };
+  validateY: function () {
+    let y = this.yInput.value.replace(",", ".");
+    if (FROM_MINUS_THREE_TILL_THREE.test(y.toString())) {
+      return true;
+    } else {
+      doAttention("Y is decimal, between -3 and 3");
+      return false;
+    }
+  },
+
+  get getY() {
+    return this.yInput.value.replace(",", ".");
+  },
+
+  get getX() {
+    return this.xSelector.value;
+  },
 };
+
+let tableWorker = {
+  innerData: function (tableRow) {
+    let table = document.querySelector("table");
+    let tBody = table.getElementsByTagName("tbody")[0];
+    let row = document.createElement("tr");
+    row.innerHTML = tableRow;
+    tBody.appendChild(row);
+  },
+};
+
+function addRadiusChangeListener() {
+  graph.redrawAll(findAndReturnSelectedRadius());
+  drawAllPoints(graph);
+}
+
+function findAndReturnSelectedRadius() {
+  let selectedElement = document.querySelector("input[name='R']:checked");
+  return selectedElement.value;
+}
+
+function addCheckButtonListener() {
+  if (inputValidator.validateX() && inputValidator.validateY()) {
+    fetch("php/Server.php", {
+      method: "POST",
+      body: JSON.stringify({
+        x: inputValidator.getX,
+        y: inputValidator.getY,
+        r: findAndReturnSelectedRadius(),
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data.status === "error") {
+          doAttention(data.message);
+        } else if (data.status === "success") {
+          tableWorker.innerData(data.message);
+          drawAllPoints(graph);
+        }
+      })
+      .catch((error) => alert(error.json().message));
+  }
+}
 
 function drawAllPoints(canvasPrinter) {
   let table = document.querySelector("table");
   let rows = table.rows;
 
-  for (let i = 0; i < rows.length; i++) {
+  for (let i = 1; i < rows.length; i++) {
     let row = rows[i];
 
     let inRange = row.cells[2].innerText;
     let x = row.cells[3].innerText;
     let y = row.cells[4].innerText;
-
-    canvasPrinter.drawPoint(x, y, Boolean(inRange));
+    canvasPrinter.drawPoint(x, y, inRange.toLowerCase() === "true");
   }
 }
 
-function deleteAllRows(canvasPrinter, finder) {
-  let table = document.querySelector("table");
-  let rows = table.rows;
-
-  for (let i = rows.length - 1; i > 0; i--) {
-    table.deleteRow(i);
-  }
-
-  canvasPrinter.redrawAll(finder);
+function doAttention(text) {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: text,
+  });
 }
+
+$(document).ready(function () {
+  graph.redrawAll(findAndReturnSelectedRadius());
+});
