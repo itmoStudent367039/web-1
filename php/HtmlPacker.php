@@ -2,7 +2,7 @@
 
 class HtmlPacker
 {
-    private $html;
+    private string $html;
 
     public function __construct($outer_tag, $inner_tag, ...$elements)
     {
@@ -10,7 +10,7 @@ class HtmlPacker
     }
 
 
-    public function parseHtml($outer_tag, $inner_tag, $elements)
+    public function parseHtml($outer_tag, $inner_tag, $elements): string
     {
         $html = "<$outer_tag>";
         foreach ($elements as $item) {
@@ -26,7 +26,7 @@ class HtmlPacker
         return $html;
     }
 
-    public function getHtml()
+    public function getHtml(): string
     {
         return $this->html;
     }

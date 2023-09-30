@@ -18,7 +18,7 @@ class Argument
         return "$this->value";
     }
 
-    public function checkArgument($fn)
+    public function checkArgument($fn): void
     {
         if (is_callable($fn)) {
             $fn($this->value);

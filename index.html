@@ -10,7 +10,7 @@
     Абдуллин Игорь Эдуардович, P3208, вариант №1800
 </div>
 
-<div class="aside">
+<aside class="aside">
     <div class="wrapper-table">
         <table class="table">
             <thead>
@@ -27,27 +27,27 @@
             </tbody>
         </table>
     </div>
-    <button class="button-4" id="clearButton" onclick="clearTable()" role="button">Очистить</button>
-</div>
+    <button class="button" id="clearButton" onclick="clearTable()" role="button">Очистить</button>
+</aside>
 <div class="content">
-    <canvas id="graph" width="300" height="300"></canvas>
     <section class="interactive">
+        <canvas id="graph" width="300" height="300"></canvas>
         <div class="interactive-element">
-            <label>
+            <label for="select-X">
                 X:
-                <select name="X" class="x-select">
-                    <option value="none" selected disabled hidden></option>
-                    <option value="-2">-2</option>
-                    <option value="-1.5">-1.5</option>
-                    <option value="-1">-1</option>
-                    <option value="-0.5">-0.5</option>
-                    <option value="0">0</option>
-                    <option value="0.5">0.5</option>
-                    <option value="1">1</option>
-                    <option value="1.5">1.5</option>
-                    <option value="2">2</option>
-                </select>
             </label>
+            <select id="select-X" name="X" class="x-select">
+                <option value="none" selected disabled hidden></option>
+                <option value="-2">-2</option>
+                <option value="-1.5">-1.5</option>
+                <option value="-1">-1</option>
+                <option value="-0.5">-0.5</option>
+                <option value="0">0</option>
+                <option value="0.5">0.5</option>
+                <option value="1">1</option>
+                <option value="1.5">1.5</option>
+                <option value="2">2</option>
+            </select>
         </div>
 
         <div class="interactive-element">
@@ -60,54 +60,56 @@
                 <legend>Radius:</legend>
                 <div id="radio-radius" onchange="addRadiusChangeListener()">
 
-                    <label for="contactChoice1">
-                        <input
-                                type="radio" name="R"
-                                value="1"
-                                id="contactChoice1"
-                                checked/>
-                        <span>1</span>
-                    </label>
+                    <label for="choiceOne"></label>
+                    <input
+                            type="radio" name="R"
+                            value="1"
+                            id="choiceOne"
+                            checked/>
+                    <span>1</span>
 
+                    <label for="choiceOneAndHalf"></label>
+                    <input
+                            type="radio"
+                            name="R"
+                            value="1.5"
+                            id="choiceOneAndHalf"/>
+                    <span>1.5</span>
 
-                    <label for="contactChoice3">
-                        <input
-                                type="radio" name="R" value="1.5"
-                                id="contactChoice3"/>
-                        <span>1.5</span>
-                    </label>
+                    <label for="choiceTwo"></label>
+                    <input
+                            type="radio"
+                            name="R"
+                            value="2"
+                            id="choiceTwo"/>
+                    <span>2</span>
 
-                    <label for="contactChoice4">
-                        <input
-                                type="radio" name="R" value="2"
-                                id="contactChoice4"/>
-                        <span>2</span>
-                    </label>
+                    <label for="choiceTwoAndHalf"></label>
+                    <input
+                            type="radio"
+                            name="R"
+                            value="2.5"
+                            id="choiceTwoAndHalf"/>
+                    <span>2.5</span>
 
-                    <label for="contactChoice5">
-                        <input
-                                type="radio" name="R" value="2.5"
-                                id="contactChoice5"/>
-                        <span>2.5</span>
-                    </label>
+                    <label for="choiceThree"></label>
+                    <input
+                            type="radio"
+                            name="R"
+                            value="3"
+                            id="choiceThree"/>
+                    <span>3</span>
 
-                    <label for="contactChoice6">
-                        <input
-                                type="radio" name="R" value="3"
-                                id="contactChoice6"/>
-                        <span>3</span>
-                    </label>
                 </div>
             </fieldset>
         </div>
+        <button class="button" role="button" onclick="addCheckButtonListener()" id="checkButton">Проверить</button>
     </section>
-    <button class="button-4" role="button" onclick="addCheckButtonListener()" id="checkButton">Проверить</button>
 </div>
 <div class="footer"> &copy; 2023 ИТМО ПИиКТ. Создано с помощью HTML/CSS, JS. Все права защищены.</div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="js/Graph.js"></script>
 <script src="js/Helper.js"></script>
-<script src="js/ManageClearBtn.js"></script>
 </body>
 </html>

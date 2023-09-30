@@ -17,7 +17,6 @@ $x = $postData['x'];
 $y = $postData['y'];
 $r = $postData['r'];
 
-
 $check_x = function ($x) {
     if (!($x == -2 || $x == -1.5 || $x == -1 || $x == -0.5 || $x == 0 ||
         $x == 0.5 || $x == 1 || $x == 1.5 || $x == 2)) {
@@ -42,13 +41,13 @@ try {
 } catch (InvalidArgumentException $exception) {
     sendErrorMessage($exception->getMessage());
 }
-function sendErrorMessage($message)
+function sendErrorMessage($message): void
 {
     http_response_code(400);
     echo json_encode(['status' => 'error', 'message' => $message]);
 }
 
-function sendData($flag, $array, $start)
+function sendData($flag, $array, $start): void
 {
     $response_time = round((microtime(true) - $start) * 1000, 3);
     $current_time = date('Y/m/d H:i:s');
